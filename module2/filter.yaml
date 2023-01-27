@@ -1,0 +1,11 @@
+- hosts: test
+  vars:
+    employee1:
+      name: Maya
+      job: Dev
+      skill: Advanced
+  tasks:
+  - name: "Transformation dictionary into a list"
+    template:
+      src: filter.j2
+      dest: /tmp/filter.out

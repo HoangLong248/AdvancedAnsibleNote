@@ -1,0 +1,10 @@
+{% if ansible_facts['distribution_version'] is version('8.0.0', '>=') %}
+	Latest Version!
+	Version={{ ansible_facts['distribution_version'] }}
+{% elif ansible_facts['distribution_version'] is version('7.0.0', '>=') %}
+	Migrating to the latest verison is highly recommended!
+	Version={{ ansible_facts['distribution_version'] }}
+{% else %}
+	Too old version! Not Supported!!!
+	Version={{ ansible_facts['distribution_version'] }}
+{% endif %}
