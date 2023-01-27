@@ -1,0 +1,16 @@
+---
+# tasks file for ntp
+- name: "make sure chrony is installed"
+  package:
+    name: chrony
+    state: present
+- name: "ntp configuration"
+  template:
+    src: ntp.yaml
+    dest: /etc/chrony.conf
+    mode: 0644
+    owner: root
+  notify: restart chrony daemon
+- name: "set timezone"
+  timezone: 
+    name: "Asia/Ho_Chi_Minh"
