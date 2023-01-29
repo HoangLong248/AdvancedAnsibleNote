@@ -1,0 +1,7 @@
+- name: deploy ntp
+  hosts: test
+  become: true
+  tasks:
+  - include_role: 
+      name: ntp
+    tags: install

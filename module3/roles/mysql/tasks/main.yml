@@ -1,0 +1,34 @@
+- name: Install MySQL
+  yum:
+    name:
+      - MySQL-python
+- name: start mysql
+  service:
+    name: mariadb
+    state: started
+    enabled: true
+- name: Create a new database with name
+  mysql_db:
+    name: "{{ mysql_db_name }}"
+    state: present
+
+- name: create a db user
+  mysql_user:
+    name: "{{ mysql_db_user }}"
+    password: "{ mysql_db_user_pass }}"
+    priv: "{{ mysql_db_user_priv }}"
+    host: "{{ mysql_db_allowed_hosts }}"
+    state: present
+- name: allow localhost
+  mysql_user:
+    name: "{{ mysql_db_user }}"
+    password: "{{ mysql_db_user_pass }}"
+    priv: "{{ mysql_db_user_priv }}"
+    host: localhost
+    state: present
+- name: copy sample data
+  copy:
+    src: demo.sql
+    dest: /tmp/demo.sql
+- name: insert sample data
+  shell: cat /tmp/demo.sql | mysql -u demo -pdemo demo
